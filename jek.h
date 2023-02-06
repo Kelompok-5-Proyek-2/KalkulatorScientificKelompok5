@@ -1,4 +1,4 @@
-#ifndef "jek_h"
+#ifndef jek_h
 #include <math.h>
 
 
