@@ -4,14 +4,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-/* KONVERSI SUHU */
-
-//Celcius
-float konversi_suhukelvin (float celcius){
-	float kelvin;
-	kelvin = celcius + 273.15;
-	return kelvin;
-}
 
 float konversi_suhufahrenheit (float celcius){
 	float fahrenheit;
