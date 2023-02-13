@@ -10,16 +10,35 @@ double exponent(double konst, double var){
 	return result;	
 }
 
+int sqroot(int konst){
+	
+	return sqrt(konst);
+}
+
+int logaritma(int konst){
+	return log10(konst);
+}
+
+double sinus(double konst){
+	return sin(konst);
+}
+
+double cosinus(double konst){
+	return cos(konst);
+}
+
+double tangen(double konst){
+	return tan(konst);
+}
+
 
 void input_exponent(){
-	double x,y;
+	double x=0;
 	double z;
 	printf("Masukkan angka : ");
 	scanf("%lf", &x);
-	printf("Masukkan angka : ");
-	scanf("%lf", &y);
-	z=exponent(x,y);
-	printf("\nHasil : %.2lf\n", z);	
+	z=sin(x);
+	printf("\nHasil : %lf\n", z);	
 }
 
 #endif
