@@ -40,15 +40,17 @@ float konversi_suhureamur (float kelvin){
 void input_suhu(){
 	float celcius, kelvin, fahrenheit, reamur;
 	int pilihan;
+	system("cls");
 	printf("Masukan suhu celsius: ");
 	scanf("%f",&celcius);
 	printf("\n");
-	kelvin = konversi_suhukelvin(celcius);
+	//kelvin = konversi_suhukelvin(celcius);
 	fahrenheit = konversi_suhufahrenheit(celcius);
 	reamur = konversi_suhureamur(celcius);
-	printf ("%.2f derajat celcius = %.2f derajat kelvin\n", celcius, kelvin);
+	//printf ("%.2f derajat celcius = %.2f derajat kelvin\n", celcius, kelvin);
 	printf ("%.2f derajat celcius = %.2f derajat fahrenheit\n", celcius, fahrenheit);
-	printf ("%.2f derajat celcius = %.2f derajat reamur", celcius, reamur);
+	printf ("%.2f derajat celcius = %.2f derajat reamur\n", celcius, reamur);
+	system("pause");
 }
 
 
@@ -97,6 +99,7 @@ float konversi_jarakmm (float x){
 
 void input_jarak(){
 	float km, hm, dam, m, dm, cm, mm, x, hasil;
+	system("cls");
 	printf("Masukkan Jarak Yang Ditempuh dalam-meter:");
 	scanf("%f", &x);
 	printf("----------------------------------------------\n");
@@ -117,6 +120,7 @@ void input_jarak(){
 	printf("Jarak %f m = %f dm\n", x, dm);
 	printf("Jarak %f m = %f cm\n", x, cm);
 	printf("Jarak %f m = %f mm\n", x, mm);
+	system("pause");
 }
 
 /* KONVERSI MASSA */

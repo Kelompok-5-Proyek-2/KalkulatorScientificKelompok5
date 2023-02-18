@@ -54,6 +54,7 @@ void input_Statistika() {
 	int BanyakData, x, frekuensi;
 	float modus;
   	float inputData[25];
+  	system("cls");
   	printf("Jumlah data yang akan dimasukkan :  ");
   	scanf("%d", &BanyakData);
   	for (x = 0; x < BanyakData; ++x)
@@ -69,7 +70,8 @@ void input_Statistika() {
 		printf("\nTidak ada Nilai Modus");
 	}
   	printf("\nNilai Mean data tersebut = %.2f", HitungMean(BanyakData, inputData));
-  	printf("\nNilai Median data tersebut = %.2f", HitungMedian(BanyakData, inputData));
+  	printf("\nNilai Median data tersebut = %.2f\n", HitungMedian(BanyakData, inputData));
+  	system("pause");
 }
 
 // Mencari nilai cotangen, cosecan dan secan

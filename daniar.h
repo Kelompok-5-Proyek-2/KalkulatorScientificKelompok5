@@ -1,6 +1,27 @@
 #ifndef daniar_h
 #include <math.h>
 
+void CalArit();
+void mainMenu();
+
+int prioritas(char operator) {
+    switch (operator) {
+        case '^':
+        case 'V':
+            return 3;
+        case '*':
+        case '/':
+            return 2;
+        case '+':
+        case '-':
+            return 1;
+        default:
+            printf("Invalid operator: %c", operator);
+            exit(1);
+    }
+}
+
+
 double exponent(double konst, double var){
 	double result =1;
 	int i;
@@ -10,9 +31,9 @@ double exponent(double konst, double var){
 	return result;	
 }
 
-int sqroot(int konst){
+double sqroot(double konst, double var){
 	
-	return sqrt(konst);
+	return pow(var, 1.0/konst);
 }
 
 int logaritma(int konst){
