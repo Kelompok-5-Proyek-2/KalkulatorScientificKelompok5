@@ -32,51 +32,53 @@ float Hitungdesimal(float pembilang, float penyebut){//mencari desimal
 float Input_desimal(){
 	float a,b;
 float hdsml;
-	printf("Pembilang : ");
+	printf("Masukkan pembilang : ");
 	scanf("%f", &a);
-	printf("Penyebut : ");
+	printf("Masukkan penyebut : ");
 	scanf("%f", &b);
 	hdsml=Hitungdesimal(a,b);
 	printf("Hasil desimal :%.2f ",hdsml);
 }
 
-int boln(int angkaA,int angkaB){// mencari boolean
-	char hslbln;
-	if (angkaA>angkaB){
-		printf("%i > %i : benar\n",&angkaA, &angkaB);
-	}else{
-		printf(">  : salah\n");
-	}
-	if (angkaA==angkaB){
-		printf(">= : benar\n");
-	}else{
-		printf(">= : salah\n");
-	}
-	if (angkaA<angkaB){
-		printf("<  : benar\n");
-	}else{
-		printf("<  : salah\n");
-	}if (angkaA==angkaB){
-		printf("<= : benar\n");
-	}else{
-		printf("<= : salah\n");
-	}if (angkaA==angkaB){
-		printf("=  : benar\n");
-	}else{
-		printf("=  : salah\n");
-	}
+int boln(int angkaA, int angkaB, char op) {
+    int hslbln = 0;
+    switch (op) {
+        case '>':
+            if (angkaA > angkaB) {
+                printf("%i > %i : benar\n", angkaA, angkaB);
+                hslbln = 1;
+            } else {
+                printf(">  : salah\n");
+            }
+            break;
+        case '=':
+            if (angkaA == angkaB) {
+                printf("%i = %i : benar\n", angkaA, angkaB);
+                hslbln = 1;
+            } else {
+                printf("=  : salah\n");
+            }
+            break;
+        default:
+            printf("Operator tidak valid\n");
+            break;
+    }
+    return hslbln;
 }
 
-void tampilbln(){
-	int a,b;
-	int hasilbln;
-	printf("\n\nangka pertama :");
-	scanf("%d", &a);
-	printf("angka kedua :");
-	scanf("%d", &b);
-	hasilbln=boln(a,b);
+void tampilbln() {
+    int angkaA, angkaB, hslbln;
+    char op;
+    printf("\n\nMasukkan angka pertama: ");
+    scanf("%i", &angkaA);
+    printf("Masukkan angka kedua: ");
+    scanf("%i", &angkaB);
+    printf("Masukkan operator perbandingan(><=): ");
+    scanf(" %c", &op);
+    hslbln = boln(angkaA, angkaB, op);
+//    printf("Hasil boolean: %i\n", hslbln);
 }
- 
+
 #endif
 
 
