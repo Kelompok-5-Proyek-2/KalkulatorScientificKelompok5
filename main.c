@@ -62,29 +62,28 @@ double operasi(double num1, double num2, char operator) {
 
 void CalArit(){
 	for(;;){
-    	char expression[100];
-		double num2, num1;
-	    double stack_num[100];
+    	char input[100];
+		double num2, num1, stack_num[100];
 	    int stack_num_top = -1;
 	    char stack_op[100], operator;
 	    int stack_op_top = -1;
 	    int i;
     	system("cls");
-    	printf("Enter expression: ");
-	    scanf("%s", expression);
-	    for (i = 0; expression[i]; i++) {
-	        if (isdigit(expression[i])) {
+    	printf("Input : ");
+	    scanf("%s", input);
+	    for (i = 0; input[i]; i++) {
+	        if (isdigit(input[i])) {
 	            char number[100];
 	            int number_top = 0;
-	            while (isdigit(expression[i]) || expression[i] == '.') {
-	                number[number_top++] = expression[i++];
+	            while (isdigit(input[i]) || input[i] == '.') {
+	                number[number_top++] = input[i++];
 	            }
 	            number[number_top] = '\0';
 	            stack_num[++stack_num_top] = atof(number);
 	            i--;
-	        } else if (expression[i] == '(') {
-	            stack_op[++stack_op_top] = expression[i];
-	        } else if (expression[i] == ')') {
+	        } else if (input[i] == '(') {
+	            stack_op[++stack_op_top] = input[i];
+	        } else if (input[i] == ')') {
 	            while (stack_op[stack_op_top] != '(') {
 	                num2 = stack_num[stack_num_top--];
 	                num1 = stack_num[stack_num_top--];
@@ -93,13 +92,13 @@ void CalArit(){
 	            }
 	            stack_op_top--;
 	        } else {
-	            while (stack_op_top >= 0 && prioritas(stack_op[stack_op_top]) >= prioritas(expression[i])) {
+	            while (stack_op_top >= 0 && prioritas(stack_op[stack_op_top]) >= prioritas(input[i])) {
 	                num2 = stack_num[stack_num_top--];
 	                num1 = stack_num[stack_num_top--];
 	                operator = stack_op[stack_op_top--];
 	                stack_num[++stack_num_top] = operasi(num1, num2, operator);
 	            }
-	            stack_op[++stack_op_top] = expression[i];
+	            stack_op[++stack_op_top] = input[i];
 			}
 		}
 		while (stack_op_top >= 0) {
@@ -112,7 +111,7 @@ void CalArit(){
 		printf("Result: %g\n", stack_num[0]);
 		system("pause");
 		
-    	if(stack_num[0]==0){
+    	if(prioritas(stack_op[stack_op_top])==-1){
     		break;
 		}
 	}
