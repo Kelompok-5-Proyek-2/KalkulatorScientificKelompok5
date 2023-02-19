@@ -5,20 +5,19 @@ void CalArit();
 void mainMenu();
 
 int prioritas(char operator) {
-    switch (operator) {
-        case '^':
-        case 'V':
-            return 3;
-        case '*':
-        case '/':
-            return 2;
-        case '+':
-        case '-':
-            return 1;
-        default:
-            printf("Invalid operator: %c", operator);
-            exit(1);
-    }
+    
+    if (operator == '+' || operator == '-')
+        return 1;
+    else if (operator == '*' || operator == '/')
+        return 2;
+    else if (operator == '^' || operator =='V')
+        return 3;
+    else if (operator == '(' || operator == ')')
+        return 0; 
+    else
+        return -1;
+        exit(1);
+    
 }
 
 

@@ -36,20 +36,20 @@ void mainMenu(){
 	}
 }
 
-double operasi(double num1, double num2, char operator) {
+double operasi(double bil1, double bil2, char operator) {
     switch (operator) {
         case '^':
-            return exponent(num1, num2);
+            return exponent(bil1, bil2);
         case '*':
-            return num1 * num2;
+            return bil1 * bil2;
         case '/':
-            return Hitungdesimal(num1, num2);
+            return Hitungdesimal(bil1, bil2);
         case '+':
-            return penjumlahan(num1, num2);
+            return penjumlahan(bil1, bil2);
         case '-':
-            return num1 - num2;
+            return bil1 - bil2;
         case 'V':
-        	return sqroot(num1, num2);
+        	return sqroot(bil1, bil2);
         default:
             printf("Invalid operator: %c", operator);
             return 0;
@@ -59,10 +59,10 @@ double operasi(double num1, double num2, char operator) {
 void CalArit(){
 	for(;;){
     	char input[100];
-		double num2, num1, stack_num[100];
-	    int stack_num_top = -1;
-	    char stack_op[100], operator;
-	    int stack_op_top = -1;
+		double bil2, bil1, operand_stack[100];
+	    int operand_top = -1;
+	    char operator_stack[100], operator;
+	    int operator_top = -1;
 	    int i;
     	system("cls");
     	printf("Input : ");
@@ -75,39 +75,39 @@ void CalArit(){
 	                number[number_top++] = input[i++];
 	            }
 	            number[number_top] = '\0';
-	            stack_num[++stack_num_top] = atof(number);
+	            operand_stack[++operand_top] = atof(number);
 	            i--;
 	        } else if (input[i] == '(') {
-	            stack_op[++stack_op_top] = input[i];
+	            operator_stack[++operator_top] = input[i];
 	        } else if (input[i] == ')') {
-	            while (stack_op[stack_op_top] != '(') {
-	                num2 = stack_num[stack_num_top--];
-	                num1 = stack_num[stack_num_top--];
-	                operator = stack_op[stack_op_top--];
-	                stack_num[++stack_num_top] = operasi(num1, num2, operator);
+	            while (operator_stack[operator_top] != '(') {
+	                bil2 = operand_stack[operand_top--];
+	                bil1 = operand_stack[operand_top--];
+	                operator = operator_stack[operator_top--];
+	                operand_stack[++operand_top] = operasi(bil1, bil2, operator);
 	            }
-	            stack_op_top--;
+	            operator_top--;
 	        } else {
-	            while (stack_op_top >= 0 && prioritas(stack_op[stack_op_top]) >= prioritas(input[i])) {
-	                num2 = stack_num[stack_num_top--];
-	                num1 = stack_num[stack_num_top--];
-	                operator = stack_op[stack_op_top--];
-	                stack_num[++stack_num_top] = operasi(num1, num2, operator);
+	            while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
+	                bil2 = operand_stack[operand_top--];
+	                bil1 = operand_stack[operand_top--];
+	                operator = operator_stack[operator_top--];
+	                operand_stack[++operand_top] = operasi(bil1, bil2, operator);
 	            }
-	            stack_op[++stack_op_top] = input[i];
+	            operator_stack[++operator_top] = input[i];
 			}
 		}
-		while (stack_op_top >= 0) {
-		    num2 = stack_num[stack_num_top--];
-		    num1 = stack_num[stack_num_top--];
-		    operator = stack_op[stack_op_top--];
-		    stack_num[++stack_num_top] = operasi(num1, num2, operator);
+		while (operator_top >= 0) {
+		    bil2 = operand_stack[operand_top--];
+		    bil1 = operand_stack[operand_top--];
+		    operator = operator_stack[operator_top--];
+		    operand_stack[++operand_top] = operasi(bil1, bil2, operator);
 		}
 		
-		printf("Result: %g\n", stack_num[0]);
+		printf("Result: %g\n", operand_stack[0]);
 		system("pause");
 		
-    	if(prioritas(stack_op[stack_op_top])==-1){
+    	if(prioritas(operator_stack[operator_top])==-1){
     		break;
 		}
 	}
@@ -116,7 +116,5 @@ void CalArit(){
 int main(){
 	
     mainMenu();
-    input_suhu();
-    input_jarak();
     return 0;
 }
