@@ -15,7 +15,7 @@ void mainMenu(){
     int opsi;
     system("cls");
 	printf("\tKalkulator Scientific Kelompok 5\n");
-    printf("\n\t1. Operasi Aritmatika\n\t2. Statiska (Median, Modus, Mean)\n\t3. Konversi Satuan Suhu\n\t4. Konversi Satuan Jarak");
+    printf("\n\t1. Operasi Aritmatika\n\t2. Statiska (Median, Modus, Mean)\n\t3. Konversi Satuan (Suhu, Jarak, Massa)");
     printf("\n\tMasukkan pilihan : ");
     scanf("%d", &opsi);
     switch(opsi){
@@ -28,11 +28,7 @@ void mainMenu(){
     		mainMenu();
     		break;
     	case 3 :
-    		input_suhu();
-    		mainMenu();
-    		break;
-    	case 4 :
-    		input_jarak();
+    		konversi();
     		mainMenu();
     		break;
     	default :
@@ -117,10 +113,10 @@ void CalArit(){
 	}
 }
 
-int main(int argc, char *argv[]) {
+int main(){
 	
     mainMenu();
+    input_suhu();
+    input_jarak();
     return 0;
-	
 }
-
