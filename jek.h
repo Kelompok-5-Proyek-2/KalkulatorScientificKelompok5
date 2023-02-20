@@ -3,22 +3,21 @@
 
 
 double penjumlahan(double angkapertama, double angkakedua){
-	double jumlah;
-	jumlah = angkapertama + angkakedua;
-	return jumlah;
+	return angkapertama + angkakedua;
 }
 
-//void inputData(){
-//	int angkapertama;
-//	int angkakedua;
-//	int jumlah;
-//	printf("Masukkan angka pertama: ");
-//	scanf("%d", &angkapertama);
-//	printf("Masukkan angka kedua: ");
-//	scanf("%d", &angkakedua);
-//	jumlah = penjumlahan(angkapertama, angkakedua);
-//	printf("Jumlah: %d", jumlah);
-//}
+double pengurangan(double angkapertama, double angkakedua){
+	return angkapertama - angkakedua;
+}
+
+double pembagian(double angkapertama, double angkakedua){
+	return angkapertama / angkakedua;
+}
+
+double perkalian(double angkapertama, double angkakedua){
+	return angkapertama * angkakedua;
+}
+
 
 #endif
 
