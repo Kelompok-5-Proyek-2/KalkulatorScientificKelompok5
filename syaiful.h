@@ -30,7 +30,7 @@ double Hitungdesimal(float pembilang, float penyebut){//mencari desimal
 	return hsldsml;
 }
 
-float Input_desimal(){
+float Input_desimal(){//desimal
 	float a,b;
 	float hdsml;
 	printf("Masukkan pembilang : ");
@@ -41,36 +41,17 @@ float Input_desimal(){
 	printf("Hasil desimal :%.2f \n",hdsml);
 }
 
-bool lebih_besar(bil1,bil2){
+bool lebih_besar(double bil1,double bil2){
 	return bil1>bil2;
 }
 
-bool lebih_kecil(bil1,bil2){
+bool lebih_kecil(double bil1,double bil2){
 	return bil1<bil2;
 }
 
-bool sama(bil1,bil2){
+bool sama(double bil1,double bil2){
 	return bil1==bil2;
 }
-
-void input(){
-	int hasil;
-	hasil=sama(4,4);
-	printf("%d",hasil);
-}
-
-//void tampilbln() {
-//    int angkaA, angkaB, hslbln;
-//    char op;
-//    printf("\n\nMasukkan angka pertama: ");
-//    scanf("%i", &angkaA);
-//    printf("Masukkan angka kedua: ");
-//    scanf("%i", &angkaB);
-//    printf("Masukkan operator perbandingan(><=): ");
-//    scanf(" %c", &op);
-//    hslbln = boln(angkaA, angkaB, op);
-//    printf("Hasil boolean: %i\n", hslbln);
-//}
 
 #endif
 
