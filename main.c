@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <math.h>
 #include <ctype.h>
 #include "daniar.h"
@@ -9,13 +10,30 @@
 #include "adhiya.h"
 #include "barry.h"
 
+double perform_trig_operation(double sudut, char op[]) {
+    if (strcmp(op, "sec(") == 0) {
+		return 1.0 / cosinuss(sudut);
+    } else if (strcmp(op, "csc(") == 0) {
+		return 1.0 / sinuss(sudut);
+    } else if (strcmp(op, "cot(") == 0) {
+		return 1.0 / tangenn(sudut);
+    } else if (strcmp(op, "sin(") == 0) {
+    	return sinuss(sudut);
+    } else if (strcmp(op, "cos(") == 0) {
+        return cosinuss(sudut);
+    } else if (strcmp(op, "tan(") == 0) {
+        return tangenn(sudut);
+    } else {
+        return 0;
+    }
+}
 
 void mainMenu(){
 	    
-    int opsi;
+    int opsi, subopsi;
     system("cls");
 	printf("\tKalkulator Scientific Kelompok 5\n");
-    printf("\n\t1. Operasi Aritmatika\n\t2. Statiska (Median, Modus, Mean)\n\t3. Konversi Satuan (Suhu, Jarak, Massa)");
+    printf("\n\t1. Scientific Calculator\n\t2. Dll");
     printf("\n\tMasukkan pilihan : ");
     scanf("%d", &opsi);
     switch(opsi){
@@ -24,11 +42,19 @@ void mainMenu(){
     		mainMenu();
     		break;
     	case 2 :
-    		input_Statistika();
-    		mainMenu();
-    		break;
-    	case 3 :
-    		konversi();
+    		system("cls");
+    		printf("\t1. Statistika\n\t2. Konversi (suhu,massa,jarak)\n\tMasukkan Pilihan : ");
+    		scanf("%d", &subopsi);
+    		switch(subopsi){
+    			case 1 :
+    				input_Statistika();
+    				break;
+    			case 2:
+    				konversi();
+    				break;
+			}
+    		
+    		
     		mainMenu();
     		break;
     	default :
@@ -41,15 +67,21 @@ double operasi(double bil1, double bil2, char operator) {
         case '^':
             return exponent(bil1, bil2);
         case '*':
-            return bil1 * bil2;
+            return perkalian(bil1,bil2);
         case '/':
-            return Hitungdesimal(bil1, bil2);
+            return pembagian(bil1,bil2);
         case '+':
             return penjumlahan(bil1, bil2);
         case '-':
-            return bil1 - bil2;
+            return pengurangan(bil1, bil2);
         case 'V':
         	return sqroot(bil1, bil2);
+        case '=':
+        	return sama(bil1, bil2);
+        case '>':
+        	return lebih_besar(bil1,bil2);
+        case '<':
+        	return lebih_kecil(bil1,bil2);
         default:
             printf("Invalid operator: %c", operator);
             return 0;
@@ -72,7 +104,7 @@ void CalArit(){
 	            char number[100];
 	            int number_top = 0;
 	            while (isdigit(input[i]) || input[i] == '.') {
-	                number[number_top++] = input[i++];
+					number[number_top++] = input[i++];
 	            }
 	            number[number_top] = '\0';
 	            operand_stack[++operand_top] = atof(number);
@@ -87,7 +119,45 @@ void CalArit(){
 	                operand_stack[++operand_top] = operasi(bil1, bil2, operator);
 	            }
 	            operator_top--;
-	        } else {
+	        } else if (input[i] == '[') {
+                i++;
+                char number[100];
+                int number_top = 0;
+                while (input[i] != ']') {
+                    number[number_top++] = input[i++];
+                }
+                number[number_top] = '\0';
+                operand_stack[++operand_top] = atof(number);
+                operand_stack[operand_top] = operand_stack[operand_top];
+            } else if(input[i]=='|'){
+            	i++;
+            	char number[100];
+                int number_top = 0;
+                while (input[i] != '|') {
+                    number[number_top++] = input[i++];
+                }
+                number[number_top] = '\0';
+                operand_stack[++operand_top] = atof(number);
+                operand_stack[operand_top] = nilai_mutlak(operand_stack[operand_top]);
+			} else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
+            	char trigono[6];
+            	int j=0;
+            	char number[100];
+            	int bil;
+            	int number_top = 0;
+            	while(input[i]!=')'){
+            		if(isdigit(input[i]) || input[i] == '.'){
+            			number[number_top++] = input[i++];
+					}else {
+				        // menyimpan operator trigonometri
+				        trigono[j++] = input[i++];
+				        trigono[6] = '\0';
+				    }
+				}
+				operand_stack[++operand_top] = atof(number);
+				bil = operand_stack[operand_top];
+				operand_stack[operand_top]=perform_trig_operation(bil, trigono);
+			}  else {
 	            while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
 	                bil2 = operand_stack[operand_top--];
 	                bil1 = operand_stack[operand_top--];
@@ -114,7 +184,7 @@ void CalArit(){
 }
 
 int main(){
-	
+
     mainMenu();
     return 0;
 }

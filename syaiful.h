@@ -55,8 +55,8 @@ bool sama(double bil1,double bil2){
 }
 
 //modul faktorial
-int faktorial(bil){
-	int bil, faktorial = 1, i;
+int faktorial(int bil){
+	int faktorial = 1, i;
 	
 	for (i = 1; i <= bil; i++) {
     	printf("%d ",faktorial);

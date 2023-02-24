@@ -14,6 +14,8 @@ int prioritas(char operator) {
         return 3;
     else if (operator == '(' || operator == ')')
         return 0; 
+    else if (operator =='=' || operator=='>' || operator =='<')
+    	return 0;
     else
         return -1;
         exit(1);
@@ -34,23 +36,6 @@ double sqroot(double konst, double var){
 	
 	return pow(var, 1.0/konst);
 }
-
-int logaritma(int konst){
-	return log10(konst);
-}
-
-double sinus(double konst){
-	return sin(konst);
-}
-
-double cosinus(double konst){
-	return cos(konst);
-}
-
-double tangen(double konst){
-	return tan(konst);
-}
-
 
 void input_exponent(){
 	double x=0;
