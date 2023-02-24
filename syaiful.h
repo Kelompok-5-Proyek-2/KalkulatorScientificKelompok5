@@ -59,12 +59,10 @@ int faktorial(int bil){
 	int faktorial = 1, i;
 	
 	for (i = 1; i <= bil; i++) {
-    	printf("%d ",faktorial);
         faktorial = faktorial * i;
     }
-    printf("Faktorial dari %d adalah %d", bil, faktorial);
 
-    return 0;
+    return faktorial;
 }
 
 #endif

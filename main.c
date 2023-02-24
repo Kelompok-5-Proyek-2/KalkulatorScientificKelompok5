@@ -140,7 +140,7 @@ void CalArit(){
                 operand_stack[++operand_top] = atof(number);
                 operand_stack[operand_top] = nilai_mutlak(operand_stack[operand_top]);
 			} else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
-            	char trigono[6];
+            	char trigono[5];
             	int j=0;
             	char number[100];
             	int bil;
@@ -151,13 +151,51 @@ void CalArit(){
 					}else {
 				        // menyimpan operator trigonometri
 				        trigono[j++] = input[i++];
-				        trigono[6] = '\0';
+				        trigono[4] = '\0';
 				    }
 				}
 				operand_stack[++operand_top] = atof(number);
 				bil = operand_stack[operand_top];
 				operand_stack[operand_top]=perform_trig_operation(bil, trigono);
-			}  else {
+			} else if(input[i]=='!'){
+			int j = i - 1;
+			int k;
+			char number[100];
+			double bil;
+			int result;
+			int index = 0;
+		    while (j >= 0 && isdigit(input[j])) {
+		        j--;
+		    }
+		    for (k = j + 1; k < i; k++) {
+		    	number[index] = input[k];
+		        index++;
+		    }
+		    
+		    operand_stack[++operand_top] = atof(number);
+			bil = operand_stack[operand_top];
+			result = faktorial(bil);
+			printf("%d ", result);
+			operand_stack[--operand_top]=(double)result;
+			
+		} else if (input[i] == 'l'){
+        	char log[6];
+        	int j=0;
+        	char number[100];
+        	int number_top = 0;
+        	while(input[i]!=')'){
+        		if(isdigit(input[i]) || input[i] == '.'){
+        			number[number_top++] = input[i++];
+				}else {
+			        log[j++] = input[i++];
+			        log[6] = '\0';
+			    }
+			}
+			operand_stack[++operand_top] = atof(number);
+			bil2 = operand_stack[operand_top--];
+			bil1 = operand_stack[operand_top--];
+			operand_stack[++operand_top]=logbase(bil2, bil1);
+		} else {
 	            while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
 	                bil2 = operand_stack[operand_top--];
 	                bil1 = operand_stack[operand_top--];
