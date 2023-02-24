@@ -77,17 +77,22 @@ void mutlak(){
 } 
 
 /********************* LOGARITMA *********************/
-double hitung_log(double bil){
-	return log10(bil);
+//double hitung_log(double bil){
+//	return log(bil);
+//}
+
+double logbase(double a, double base){
+	return log(a) / log(base);
 }
 
-void logaritma(){
+void input_logaritma(){
 	system("cls");
-	double bil, hasil;
-    printf("Masukkan bilangan: ");
-    scanf("%lf", &bil);
-    hasil = hitung_log(bil);
-	printf("Logaritma dari %.2lf = %.2lf\n", bil, hasil);
+	double a, base, hasil;
+    printf("Masukkan bilangan : ");
+    scanf("%lf", &a);
+    printf("Masukan baris logaritma :");
+    scanf("%lf", &base);
+	printf("Logaritma dari %.2lf = %.2lf\n",a, logbase (a, base));
 	system ("pause");
 }
 
