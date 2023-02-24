@@ -22,7 +22,6 @@ double cosinuss(double bil){
 double tangenn(double bil){
 	return tan(toRadian(bil));
 }
-
 void trigonometri (){
 	int pilih;
 	double bil;
