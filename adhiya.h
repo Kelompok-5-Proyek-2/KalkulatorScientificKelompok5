@@ -75,6 +75,23 @@ void mutlak(){
 	printf("Nilai mutlak dari %.2lf = %.2lf\n", x, hasil);
 	system("pause");
 } 
+
+/********************* LOGARITMA *********************/
+double hitung_log(double bil){
+	return log10(bil);
+}
+
+void logaritma(){
+	system("cls");
+	double bil, hasil;
+    printf("Masukkan bilangan: ");
+    scanf("%lf", &bil);
+    hasil = hitung_log(bil);
+	printf("Logaritma dari %.2lf = %.2lf\n", bil, hasil);
+	system ("pause");
+}
+
+
 /********************* KONVERSI SUHU *********************/
 
 //CELCIUS KE FAHRENHEIT
