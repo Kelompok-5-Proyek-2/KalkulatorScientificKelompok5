@@ -175,7 +175,6 @@ void CalArit(){
 		    operand_stack[++operand_top] = atof(number);
 			bil = operand_stack[operand_top];
 			result = faktorial(bil);
-			printf("%d ", result);
 			operand_stack[--operand_top]=(double)result;
 			
 		} else if (input[i] == 'l'){
