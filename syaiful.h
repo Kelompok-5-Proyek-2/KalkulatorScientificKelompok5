@@ -41,6 +41,7 @@ float Input_desimal(){//desimal
 	printf("Hasil desimal :%.2f \n",hdsml);
 }
 
+//modul boolean
 bool lebih_besar(double bil1,double bil2){
 	return bil1>bil2;
 }
@@ -51,6 +52,19 @@ bool lebih_kecil(double bil1,double bil2){
 
 bool sama(double bil1,double bil2){
 	return bil1==bil2;
+}
+
+//modul faktorial
+int faktorial(bil){
+	int bil, faktorial = 1, i;
+	
+	for (i = 1; i <= bil; i++) {
+    	printf("%d ",faktorial);
+        faktorial = faktorial * i;
+    }
+    printf("Faktorial dari %d adalah %d", bil, faktorial);
+
+    return 0;
 }
 
 #endif
