@@ -76,6 +76,33 @@ void input_Statistika() {
 
 // Mencari nilai cotangen, cosecan dan secan
 
+double perform_trig_operation(double sudut, char op[]) {
+    if (strcmp(op, "sec(") == 0) {
+    	sudut = sudut * M_PI/180;
+		float nilai_cos = cos(sudut);
+		return 1.0 / nilai_cos;
+    } else if (strcmp(op, "csc(") == 0) {
+       	sudut = sudut * M_PI/180;
+		float nilai_sin = sin(sudut);
+		return 1.0 / nilai_sin;
+    } else if (strcmp(op, "cot(") == 0) {
+        sudut = sudut * M_PI/180;
+		float nilai_tan = tan(sudut);
+		return 1.0 / nilai_tan;
+    } else if (strcmp(op, "sin(") == 0) {
+    	sudut = sudut * M_PI/180;
+    	return sin(sudut);
+    } else if (strcmp(op, "cos(") == 0) {
+    	sudut = sudut * M_PI/180;
+        return cos(sudut);
+    } else if (strcmp(op, "tan(") == 0) {
+    	sudut = sudut * M_PI/180;
+        return tan(sudut);
+    } else {
+        return 0;
+    }
+}
+
 float calculate_cot(float sudut) {
 	float nilai_tan = tan(sudut);
 	return 1.0 / nilai_tan;
