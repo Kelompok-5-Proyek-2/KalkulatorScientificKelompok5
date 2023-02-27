@@ -82,6 +82,8 @@ double operasi(double bil1, double bil2, char operator) {
         	return lebih_besar(bil1,bil2);
         case '<':
         	return lebih_kecil(bil1,bil2);
+        case '%':
+        	return mod(bil1,bil2);
         default:
             printf("Invalid operator: %c", operator);
             return 0;
@@ -158,43 +160,43 @@ void CalArit(){
 				bil = operand_stack[operand_top];
 				operand_stack[operand_top]=perform_trig_operation(bil, trigono);
 			} else if(input[i]=='!'){
-			int j = i - 1;
-			int k;
-			char number[100];
-			double bil;
-			int result;
-			int index = 0;
-		    while (j >= 0 && isdigit(input[j])) {
-		        j--;
-		    }
-		    for (k = j + 1; k < i; k++) {
-		    	number[index] = input[k];
-		        index++;
-		    }
-		    
-		    operand_stack[++operand_top] = atof(number);
-			bil = operand_stack[operand_top];
-			result = faktorial(bil);
-			operand_stack[--operand_top]=(double)result;
-			
-		} else if (input[i] == 'l'){
-        	char log[6];
-        	int j=0;
-        	char number[100];
-        	int number_top = 0;
-        	while(input[i]!=')'){
-        		if(isdigit(input[i]) || input[i] == '.'){
-        			number[number_top++] = input[i++];
-				}else {
-			        log[j++] = input[i++];
-			        log[6] = '\0';
+				int j = i - 1;
+				int k;
+				char number[100];
+				double bil;
+				int result;
+				int index = 0;
+			    while (j >= 0 && isdigit(input[j])) {
+			        j--;
 			    }
-			}
-			operand_stack[++operand_top] = atof(number);
-			bil2 = operand_stack[operand_top--];
-			bil1 = operand_stack[operand_top--];
-			operand_stack[++operand_top]=logbase(bil2, bil1);
-		} else {
+			    for (k = j + 1; k < i; k++) {
+			    	number[index] = input[k];
+			        index++;
+			    }
+			    
+			    operand_stack[++operand_top] = atof(number);
+				bil = operand_stack[operand_top];
+				result = faktorial(bil);
+				operand_stack[--operand_top]=(double)result;
+				
+			} else if (input[i] == 'l'){
+	        	char log[6];
+	        	int j=0;
+	        	char number[100];
+	        	int number_top = 0;
+	        	while(input[i]!=')'){
+	        		if(isdigit(input[i]) || input[i] == '.'){
+	        			number[number_top++] = input[i++];
+					}else {
+				        log[j++] = input[i++];
+				        log[6] = '\0';
+				    }
+				}
+				operand_stack[++operand_top] = atof(number);
+				bil2 = operand_stack[operand_top--];
+				bil1 = operand_stack[operand_top--];
+				operand_stack[++operand_top]=logbase(bil2, bil1);
+			} else {
 	            while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
 	                bil2 = operand_stack[operand_top--];
 	                bil1 = operand_stack[operand_top--];

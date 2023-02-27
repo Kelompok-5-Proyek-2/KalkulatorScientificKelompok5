@@ -12,6 +12,8 @@ int prioritas(char operator) {
         return 2;
     else if (operator == '^' || operator =='V')
         return 3;
+    else if (operator == '%')
+    	return 4;
     else if (operator == '(' || operator == ')' || operator =='=' || operator=='>' || operator =='<')
         return 0; 
     else
