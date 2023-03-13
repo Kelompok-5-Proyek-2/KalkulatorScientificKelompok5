@@ -32,23 +32,23 @@ double HitungMedian(int BanyakData, float inputData[]) {
   	}
 }
 
-void HitungModus(int BanyakData, float inputData[], float *modus, int *frekuensi) {
-  int i, j, hitung;
-  
-  *frekuensi = 0;
-  for (i = 0; i < BanyakData; ++i) {
-    hitung = 0;
-    for (j = 0; j < BanyakData; ++j) {
-      if (inputData[j] == inputData[i]) {
-        ++hitung;
-      }
-    }
-    if (hitung > *frekuensi) {
-      *frekuensi = hitung;
-      *modus = inputData[i];
-    }
-  }
-}
+//void HitungModus(int BanyakData, float inputData[], float *modus, int *frekuensi) {
+//  int i, j, hitung;
+//  
+//  *frekuensi = 0;
+//  for (i = 0; i < BanyakData; ++i) {
+//    hitung = 0;
+//    for (j = 0; j < BanyakData; ++j) {
+//      if (inputData[j] == inputData[i]) {
+//        ++hitung;
+//      }
+//    }
+//    if (hitung > *frekuensi) {
+//      *frekuensi = hitung;
+//      *modus = inputData[i];
+//    }
+//  }
+//}
 
 void input_Statistika() {
 	int BanyakData, x, frekuensi;
@@ -62,16 +62,16 @@ void input_Statistika() {
     	printf("Masukkan angka : ");
     	scanf("%f", &inputData[x]);
 	}
-	HitungModus(BanyakData, inputData, &modus, &frekuensi);
-	if (frekuensi > 1) {
-		printf("Nilai Modus data tersebut = %.2f", modus);
-		printf("\nSebanyak %d nilai", frekuensi);	
-	} else {
-		printf("\nTidak ada Nilai Modus");
-	}
-  	printf("\nNilai Mean data tersebut = %.2f", HitungMean(BanyakData, inputData));
-  	printf("\nNilai Median data tersebut = %.2f\n", HitungMedian(BanyakData, inputData));
-  	system("pause");
+//	HitungModus(BanyakData, inputData, &modus, &frekuensi);
+//	if (frekuensi > 1) {
+//		printf("Nilai Modus data tersebut = %.2f", modus);
+//		printf("\nSebanyak %d nilai", frekuensi);	
+//	} else {
+//		printf("\nTidak ada Nilai Modus");
+//	}
+//  	printf("\nNilai Mean data tersebut = %.2f", HitungMean(BanyakData, inputData));
+//  	printf("\nNilai Median data tersebut = %.2f\n", HitungMedian(BanyakData, inputData));
+//  	system("pause");
 }
 
 // Mencari nilai cotangen, cosecan dan secan

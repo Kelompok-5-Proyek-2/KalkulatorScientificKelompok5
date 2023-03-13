@@ -77,9 +77,6 @@ void mutlak(){
 } 
 
 /********************* LOGARITMA *********************/
-//double hitung_log(double bil){
-//	return log(bil);
-//}
 
 double logbase(double a, double base){
 	return log(a) / log(base);

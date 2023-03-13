@@ -82,8 +82,6 @@ double operasi(double bil1, double bil2, char operator) {
         	return lebih_besar(bil1,bil2);
         case '<':
         	return lebih_kecil(bil1,bil2);
-        case '%':
-        	return mod(bil1,bil2);
         default:
             printf("Invalid operator: %c", operator);
             return 0;

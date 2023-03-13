@@ -12,10 +12,10 @@ int prioritas(char operator) {
         return 2;
     else if (operator == '^' || operator =='V')
         return 3;
-    else if (operator == '%')
-    	return 4;
-    else if (operator == '(' || operator == ')' || operator =='=' || operator=='>' || operator =='<')
+    else if (operator == '(' || operator == ')')
         return 0; 
+    else if (operator =='=' || operator=='>' || operator =='<')
+    	return 0;
     else
         return -1;
         exit(1);
@@ -24,12 +24,7 @@ int prioritas(char operator) {
 
 
 double exponent(double konst, double var){
-	double result =1;
-	int i;
-	for (i=0;i<var;i++){
-		result=result*konst;
-	}
-	return result;	
+	return pow(konst,var);	
 }
 
 double sqroot(double konst, double var){

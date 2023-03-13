@@ -19,10 +19,6 @@ double perkalian(double angkapertama, double angkakedua){
 	return angkapertama * angkakedua;
 }
 
-int mod(int a, int b) {
-    int r = a / b;
-    return r < 0 ? r + b : r;
-}
 
 #endif
 
