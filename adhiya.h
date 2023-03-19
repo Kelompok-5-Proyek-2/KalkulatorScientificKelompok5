@@ -8,7 +8,7 @@
 
 // konversi sudut dalam derajat ke radian
 double to_radian(double derajat) {
-    return degree * (3.14159265359 / 180.0);
+    return derajat * (3.14159265359 / 180.0);
 }
 
 // menghitung nilai sinus
@@ -122,9 +122,9 @@ void input_mutlak(){
 //     return hasil / 2.302585;
 //}
 
-//double logbase(double a, double base){
-//	return log(a) / log(base);
-//}
+double logbase(double a, double base){
+	return log(a) / log(base);
+}
 
 //void input_logaritma(){
 //	system("cls");

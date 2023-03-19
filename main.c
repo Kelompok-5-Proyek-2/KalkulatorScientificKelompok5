@@ -12,17 +12,17 @@
 
 double perform_trig_operation(double sudut, char op[]) {
     if (strcmp(op, "sec(") == 0) {
-		return 1.0 / cosinuss(sudut);
+		return 1.0 / cosinus(sudut);
     } else if (strcmp(op, "csc(") == 0) {
-		return 1.0 / sinuss(sudut);
+		return 1.0 / sinus(sudut);
     } else if (strcmp(op, "cot(") == 0) {
-		return 1.0 / tangenn(sudut);
+		return 1.0 / tangen(sudut);
     } else if (strcmp(op, "sin(") == 0) {
-    	return sinuss(sudut);
+    	return sinus(sudut);
     } else if (strcmp(op, "cos(") == 0) {
-        return cosinuss(sudut);
+        return cosinus(sudut);
     } else if (strcmp(op, "tan(") == 0) {
-        return tangenn(sudut);
+        return tangen(sudut);
     } else {
     	printf("invalid operator trigonometri, example 'sin(), cos(), tan(), sec(), cot(), csc()'\n");
     	system("pause");
@@ -52,7 +52,7 @@ double operasi(double bil1, double bil2, char operator) {
         case '<':
         	return lebih_kecil(bil1,bil2);
         default:
-            printf("Invalid operator: %c", operator);
+            printf("Invalid operator: %c\n", operator);
             return 0;
     }
 }
@@ -68,7 +68,7 @@ void CalArit(){
     	system("cls");
     	printf("\tKalkulator Scientific Kelompok 5\n\n");
     	printf("Input : ");
-	    scanf("%s", input);
+	    scanf("%s", &input);
 	    for (i = 0; input[i]; i++) {
 	        if (isdigit(input[i])) {
 	            char number[100];
@@ -112,10 +112,16 @@ void CalArit(){
 			} else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
             	char trigono[5];
             	int j=0;
-            	char number[100];
-            	int bil;
+            	char number[100], cek;
+            	int bil, negative;
             	int number_top = 0;
-            	while(input[i] != ')' && input[i] != '+' && input[i] != '-' && input[i] != '*' && input[i] != '/' && input[i] != ' '){
+            	negative = 0;
+			    cek = input[i+4]; // Skip "sin(" or "cos(" or "tan("		
+			    // Handle negative number
+			    if (cek == '-') {
+			    	negative = 1;
+			    }
+            	while(input[i] != ')' && (input[i] != '+' || input[i] != '*' || input[i] != '/') && input[i] != ' '){
             		if(isdigit(input[i]) || input[i] == '.'){
             			number[number_top++] = input[i++];
 					}else {
@@ -124,10 +130,17 @@ void CalArit(){
 				        trigono[4] = '\0';
 				    }
 				}
+				if(negative){
+					j--;
+				}
 				if(j!=4){
 					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
 				}else{
-					operand_stack[++operand_top] = atof(number);
+					if (negative) { // jika bilangan negatif, konversi ke nilai negatif saat disimpan di stack
+			            operand_stack[++operand_top] = -1 * atof(number);
+			        } else {
+			            operand_stack[++operand_top] = atof(number);
+			        }
 					bil = operand_stack[operand_top];
 					operand_stack[operand_top]=perform_trig_operation(bil, trigono);
 				}
@@ -152,46 +165,53 @@ void CalArit(){
 				operand_stack[--operand_top]=(double)result;
 				
 			} else if (input[i] == 'l'){
-	        	char log[6];
+	        	char log[4];
 	        	int j=0;
 	        	char temp[1], temp2[1];
 	        	char number[100];
 	        	int number_top = 0;
 	        	temp[0] = input[i-1];
-	        	while(input[i] != ')' && input[i] != '+' && input[i] != '-' && input[i] != '*' && input[i] != '/' && input[i] != ' '){
+	        	while(input[i] != ')' && (input[i] != '+' || input[i] != '-' || input[i] != '*' || input[i] != '/') && input[i] != ' '){
 	        		if(isdigit(input[i]) || input[i] == '.'){
 	        			number[number_top++] = input[i++];
 					}else {
 				        log[j++] = input[i++];
-				        log[6] = '\0';
+				        log[4] = '\0';
 				    }
 				}
-				
-				if(j!=4){
-					printf("Invalid expression for logaritma, example 'log(10) or 2log(4)'\n");
+				if(strcmp(log, "log(")){
+					printf("invalid expression, maybe input = 'log()'?\n");
 				}else{
-					operand_stack[++operand_top] = atof(number);
-					bil2 = operand_stack[operand_top--];
-					if(bil2 <= 0) {
-			            printf("Invalid expression for logaritma, the input number should be greater than 0\n");
-			        }
-					else if(!isdigit(temp[0])){
-						operand_stack[++operand_top]=logbase(bil2, 10);
+					if(j!=4){
+					printf("Invalid expression for logaritma, example 'log(10) or 2log(4) and input number should be greater than 0'\n");
 					}else{
-						bil1 = operand_stack[operand_top--];
-						operand_stack[++operand_top]=logbase(bil2, bil1);
-					}
-				
+						operand_stack[++operand_top] = atof(number);
+						bil2 = operand_stack[operand_top--];
+						if(bil2 <= 0) {
+				            printf("Invalid expression for logaritma, the input number should be greater than 0\n");
+				        }
+						else if(!isdigit(temp[0])){
+							operand_stack[++operand_top]=logbase(bil2, 10);
+						}else{
+							bil1 = operand_stack[operand_top--];
+							operand_stack[++operand_top]=logbase(bil2, bil1);
+						}
+					
+					}	
 				}
-				
 			} else {
-	            while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
+				if(!isdigit(input[i]) && !isdigit(input[i+1]) && input[i+1] !='(' && input[i+1]!='[' && input[i+1]!='|' && input[i+1]!= 'l' && input[i+1]!='s' && input[i+1]!='c' && input[i+1]!='t'){
+					printf("The operator is incorrect, the '%c' and '%c' operators should not be adjacent to each other\n", input[i], input[i+1]);
+				}else{
+					while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
 	                bil2 = operand_stack[operand_top--];
 	                bil1 = operand_stack[operand_top--];
 	                operator = operator_stack[operator_top--];
 	                operand_stack[++operand_top] = operasi(bil1, bil2, operator);
-	            }
-	            operator_stack[++operator_top] = input[i];
+	            	}
+	            	operator_stack[++operator_top] = input[i];
+				}
+	            
 			}
 		}
 		while (operator_top >= 0) {
@@ -203,11 +223,6 @@ void CalArit(){
 		
 		printf("Result: %g\n", operand_stack[0]);
 		system("pause");
-		
-//    	if(prioritas(operator_stack[operator_top])==-1){
-////    		break;
-//		}
-		
 	}
 }
 
