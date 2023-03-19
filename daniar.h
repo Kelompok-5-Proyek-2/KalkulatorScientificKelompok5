@@ -22,16 +22,6 @@ int prioritas(char operator) {
     
 }
 
-
-double exponent(double konst, double var){
-	return pow(konst,var);	
-}
-
-double sqroot(double konst, double var){
-	
-	return pow(var, 1.0/konst);
-}
-
 void input_exponent(){
 	double x=0;
 	double z;
