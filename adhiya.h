@@ -2,29 +2,54 @@
 #define Konversi_Suhu_H
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+
 
 /********************* SIN, COS, TAN *********************/
 
-//MENGUBAH DERAJAT KE RADIAN
-double toRadian (double derajat){
-	return (derajat*M_PI)/180;
+// konversi sudut dalam derajat ke radian
+double to_radian(double derajat) {
+    return degree * (3.14159265359 / 180.0);
 }
 
-double sinuss(double bil){
-	return sin(toRadian(bil));
+// menghitung nilai sinus
+double sinus(double derajat) {
+    double radian = to_radian(derajat);
+    double result = radian;
+    double term = radian;
+    int i;
+
+    for (i = 1; i <= 10; i++) {
+        term = -term * radian * radian / ((2 * i) * (2 * i + 1));
+        result += term;
+    }
+
+    return result;
 }
 
-double cosinuss(double bil){
-	return cos(toRadian(bil));
+// menghitung nilai kosinus
+double cosinus(double derajat) {
+    double radian = to_radian(derajat);
+    double result = 1;
+    double term = 1;
+    int i;
+
+    for (i = 1; i <= 10; i++) {
+        term = -term * radian * radian / ((2 * i - 1) * (2 * i));
+        result += term;
+    }
+
+    return result;
 }
 
-double tangenn(double bil){
-	return tan(toRadian(bil));
+// menghitung nilai tangen
+double tangen(double derajat) {
+    return sinus(derajat) / cosinus(derajat);
 }
+
+
 void trigonometri (){
 	int pilih;
-	double bil;
+	double derajat;
     system("cls");
     printf("\n\t1. Hitung Sin\n\t2. Hitung Cos\n\t3. Hitung Tan\n\t4. Menu utama");
     printf("\n\tMasukkan pilihan : ");
@@ -33,20 +58,20 @@ void trigonometri (){
     	case 1 :
     		system("cls");
     		printf("Masukan nilai Sin :");
-    		scanf("%lf", &bil);
-    		printf("Sin %lf = %.2lf\n", bil, sinuss(bil));
+    		scanf("%lf", &derajat);
+    		printf("Sin %lf = %.2lf\n", derajat, sinus(derajat));
     		break;
     	case 2 :
     		system("cls");
     		printf("Masukan nilai Cos :");
-    		scanf("%lf", &bil);
-    		printf("Cos %lf = %.2lf\n", bil, cosinuss(bil));
+    		scanf("%lf", &derajat);
+    		printf("Cos %lf = %.2lf\n", derajat, cosinus(derajat));
     		break;
     	case 3 :
     		system("cls");
     		printf("Masukan nilai Tan :");
-    		scanf("%lf", &bil);
-    		printf("Tan %lf = %.2lf\n", bil, tangenn(bil));
+    		scanf("%lf", &derajat);
+    		printf("Tan %lf = %.2lf\n", derajat, tangen(derajat));
     		break;
     	case 4 :
     		mainMenu();
@@ -62,36 +87,54 @@ void trigonometri (){
 
 /********************* NILAI MUTLAK *********************/
 
-double nilai_mutlak(double x){
-	return fabs(x);
+double nilai_mutlak(double bilangan){
+	if (bilangan < 0){
+		return -bilangan;
+	}
+	else 
+		return bilangan;
 }
 
-void mutlak(){
+void input_mutlak(){
 	system ("cls");
-	double x, hasil;
+	double bilangan, hasil;
 	printf("Masukan bilangan : ");
-	scanf("%lf", &x);
-	hasil = nilai_mutlak(x);
-	printf("Nilai mutlak dari %.2lf = %.2lf\n", x, hasil);
+	scanf("%lf", &bilangan);
+	hasil = nilai_mutlak(bilangan);
+	printf("Nilai mutlak dari %.2lf = %.2lf\n", bilangan, hasil);
 	system("pause");
 } 
 
 /********************* LOGARITMA *********************/
 
-double logbase(double a, double base){
-	return log(a) / log(base);
-}
+//double logaritma(double bilangan) {
+//    double hasil = 0.0;
+//    double akhir = 0.000001;
+//    double eksponen = (bilangan - 1) / bilangan;
+//    double pangkat = eksponen;
+//    double i = 1;
+//
+//    while (pangkat > akhir) {
+//        hasil = hasil + pangkat / i;
+//        pangkat = pangkat * eksponen;
+//        i++;
+//    }
+//     return hasil / 2.302585;
+//}
 
-void input_logaritma(){
-	system("cls");
-	double a, base, hasil;
-    printf("Masukkan bilangan : ");
-    scanf("%lf", &a);
-    printf("Masukan baris logaritma :");
-    scanf("%lf", &base);
-	printf("Logaritma dari %.2lf = %.2lf\n",a, logbase (a, base));
-	system ("pause");
-}
+//double logbase(double a, double base){
+//	return log(a) / log(base);
+//}
+
+//void input_logaritma(){
+//	system("cls");
+//	double bilangan, hasil;
+//    printf("Masukkan bilangan : ");
+//    scanf("%lf", &bilangan);
+//    hasil = logaritma(bilangan);
+//	printf("Logaritma dari %.2lf = %.2lf\n", bilangan, hasil);
+//	system ("pause");
+//}
 
 
 /********************* KONVERSI SUHU *********************/
