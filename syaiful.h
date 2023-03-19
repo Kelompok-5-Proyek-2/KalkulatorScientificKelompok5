@@ -54,6 +54,17 @@ bool sama(double bil1,double bil2){
 	return bil1==bil2;
 }
 
+//modul perpangkatan
+double exponent(double konst, double var){
+	return pow(konst,var);	
+}
+
+//modul akar
+double sqroot(double konst, double var){
+	
+	return pow(var, 1.0/konst);
+}
+
 //modul faktorial
 int faktorial(int bil){
 	int faktorial = 1, i;
