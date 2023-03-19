@@ -24,43 +24,12 @@ double perform_trig_operation(double sudut, char op[]) {
     } else if (strcmp(op, "tan(") == 0) {
         return tangenn(sudut);
     } else {
+    	printf("invalid operator trigonometri, example 'sin(), cos(), tan(), sec(), cot(), csc()'\n");
+    	system("pause");
         return 0;
     }
 }
 
-void mainMenu(){
-	    
-    int opsi, subopsi;
-    system("cls");
-	printf("\tKalkulator Scientific Kelompok 5\n");
-    printf("\n\t1. Scientific Calculator\n\t2. Dll");
-    printf("\n\tMasukkan pilihan : ");
-    scanf("%d", &opsi);
-    switch(opsi){
-    	case 1 :
-    		CalArit();
-    		mainMenu();
-    		break;
-    	case 2 :
-    		system("cls");
-    		printf("\t1. Statistika\n\t2. Konversi (suhu,massa,jarak)\n\tMasukkan Pilihan : ");
-    		scanf("%d", &subopsi);
-    		switch(subopsi){
-    			case 1 :
-    				input_Statistika();
-    				break;
-    			case 2:
-    				konversi();
-    				break;
-			}
-    		
-    		
-    		mainMenu();
-    		break;
-    	default :
-    		exit(1);
-	}
-}
 
 double operasi(double bil1, double bil2, char operator) {
     switch (operator) {
@@ -97,6 +66,7 @@ void CalArit(){
 	    int operator_top = -1;
 	    int i;
     	system("cls");
+    	printf("\tKalkulator Scientific Kelompok 5\n\n");
     	printf("Input : ");
 	    scanf("%s", input);
 	    for (i = 0; input[i]; i++) {
@@ -145,7 +115,7 @@ void CalArit(){
             	char number[100];
             	int bil;
             	int number_top = 0;
-            	while(input[i]!=')'){
+            	while(input[i] != ')' && input[i] != '+' && input[i] != '-' && input[i] != '*' && input[i] != '/' && input[i] != ' '){
             		if(isdigit(input[i]) || input[i] == '.'){
             			number[number_top++] = input[i++];
 					}else {
@@ -154,9 +124,13 @@ void CalArit(){
 				        trigono[4] = '\0';
 				    }
 				}
-				operand_stack[++operand_top] = atof(number);
-				bil = operand_stack[operand_top];
-				operand_stack[operand_top]=perform_trig_operation(bil, trigono);
+				if(j!=4){
+					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
+				}else{
+					operand_stack[++operand_top] = atof(number);
+					bil = operand_stack[operand_top];
+					operand_stack[operand_top]=perform_trig_operation(bil, trigono);
+				}
 			} else if(input[i]=='!'){
 				int j = i - 1;
 				int k;
@@ -180,9 +154,11 @@ void CalArit(){
 			} else if (input[i] == 'l'){
 	        	char log[6];
 	        	int j=0;
+	        	char temp[1], temp2[1];
 	        	char number[100];
 	        	int number_top = 0;
-	        	while(input[i]!=')'){
+	        	temp[0] = input[i-1];
+	        	while(input[i] != ')' && input[i] != '+' && input[i] != '-' && input[i] != '*' && input[i] != '/' && input[i] != ' '){
 	        		if(isdigit(input[i]) || input[i] == '.'){
 	        			number[number_top++] = input[i++];
 					}else {
@@ -190,10 +166,24 @@ void CalArit(){
 				        log[6] = '\0';
 				    }
 				}
-				operand_stack[++operand_top] = atof(number);
-				bil2 = operand_stack[operand_top--];
-				bil1 = operand_stack[operand_top--];
-				operand_stack[++operand_top]=logbase(bil2, bil1);
+				
+				if(j!=4){
+					printf("Invalid expression for logaritma, example 'log(10) or 2log(4)'\n");
+				}else{
+					operand_stack[++operand_top] = atof(number);
+					bil2 = operand_stack[operand_top--];
+					if(bil2 <= 0) {
+			            printf("Invalid expression for logaritma, the input number should be greater than 0\n");
+			        }
+					else if(!isdigit(temp[0])){
+						operand_stack[++operand_top]=logbase(bil2, 10);
+					}else{
+						bil1 = operand_stack[operand_top--];
+						operand_stack[++operand_top]=logbase(bil2, bil1);
+					}
+				
+				}
+				
 			} else {
 	            while (operator_top >= 0 && prioritas(operator_stack[operator_top]) >= prioritas(input[i])) {
 	                bil2 = operand_stack[operand_top--];
@@ -214,14 +204,15 @@ void CalArit(){
 		printf("Result: %g\n", operand_stack[0]);
 		system("pause");
 		
-    	if(prioritas(operator_stack[operator_top])==-1){
-    		break;
-		}
+//    	if(prioritas(operator_stack[operator_top])==-1){
+////    		break;
+//		}
+		
 	}
 }
 
 int main(){
 
-    mainMenu();
+    CalArit();
     return 0;
 }

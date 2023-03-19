@@ -49,7 +49,7 @@ void trigonometri (){
     		printf("Tan %lf = %.2lf\n", bil, tangenn(bil));
     		break;
     	case 4 :
-    		mainMenu();
+    		//CalArit();
     		break;
 		default :
 			exit(1);
@@ -883,9 +883,9 @@ void konversi(){
     		input_massa();
     		konversi();
     		break;
-    	case 4 :
-    		mainMenu();
-    		break;
+//    	case 4 :
+//    		//mainMenu();
+//    		break;
 		default :
     		exit(1);
 	}
