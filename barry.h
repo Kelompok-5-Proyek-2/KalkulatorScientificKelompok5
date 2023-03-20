@@ -1,8 +1,31 @@
 #ifndef barry_h
 #define barry_h
-#include <math.h>
 #include <stdio.h>
+#include <math.h>	// math.h masih digunakan disini karena dalam modul logaritma masih menggunakan pow
 #include <stdlib.h>
+
+// modulnya disimpan di main
+double perform_trig_operation(double sudut, char op[]);
+
+// logaritma natural
+double lognat(double angka)
+{
+    double result = 0.0;
+    double i;
+    int iterasi = 30000;
+    
+    //looping sebanyak iterasi, semakin banyak iterasi maka semakin akurat jawabannya
+    for (i = 1.0; i <= iterasi; i = i + 1.0) {
+        result += (1.0 / i) * pow(((angka - 1.0) / angka), i);
+    }
+    return result;
+}
+
+//logaritma
+double logaritma(double angka, double basis)
+{
+	return lognat(angka) / lognat(basis);
+}
 
 // Statistika, mencari nilai modus, median dan mean
 
@@ -12,7 +35,7 @@ int compare_ints(const void *a, const void *b) {
   return *x - *y;
 }
 
-float HitungMean(int BanyakData, float inputData[])
+double HitungMean(int BanyakData, float inputData[])
 {
 	int x;
 	float sum = 0.0;
@@ -74,11 +97,12 @@ void input_Statistika() {
   	system("pause");
 }
 
+#endif
+
 // Mencari nilai cotangen, cosecan dan secan
 
-double perform_trig_operation(double sudut, char op[]);
 
-float calculate_cot(float sudut) {
+/*float calculate_cot(float sudut) {
 	float nilai_tan = tan(sudut);
 	return 1.0 / nilai_tan;
 }
@@ -109,5 +133,3 @@ void inputSudut() {
 	}
 	printf("Hasilnya adalah : %.2f", result);
 }
-
-#endif
