@@ -61,6 +61,7 @@ void CalArit(){
 	for(;;){
     	char input[100];
 		double bil2, bil1, operand_stack[100];
+		operand_stack[0] = 0;
 	    int operand_top = -1;
 	    char operator_stack[100], operator;
 	    int operator_top = -1;
@@ -87,6 +88,9 @@ void CalArit(){
 	                bil1 = operand_stack[operand_top--];
 	                operator = operator_stack[operator_top--];
 	                operand_stack[++operand_top] = operasi(bil1, bil2, operator);
+	                if(operand_top == -1){
+	                	break;
+					}
 	            }
 	            operator_top--;
 	        } else if (input[i] == '[') {
@@ -116,7 +120,12 @@ void CalArit(){
             	int bil, negative;
             	int number_top = 0;
             	negative = 0;
-			    cek = input[i+4]; // Skip "sin(" or "cos(" or "tan("		
+			    cek = input[i+4]; // Skip "sin(" or "cos(" or "tan("
+				
+				//Handle angka sebelum sin
+				if(isdigit(input[i-1])){
+					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
+				}		
 			    // Handle negative number
 			    if (cek == '-') {
 			    	negative = 1;
