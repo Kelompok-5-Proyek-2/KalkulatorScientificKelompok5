@@ -1,5 +1,6 @@
 #ifndef daniar_h
 #include <math.h>
+#include <stdbool.h>
 
 void CalArit();
 void mainMenu();
@@ -22,13 +23,14 @@ int prioritas(char operator) {
     
 }
 
-void input_exponent(){
-	double x=0;
-	double z;
-	printf("Masukkan angka : ");
-	scanf("%lf", &x);
-	z=sin(x);
-	printf("\nHasil : %lf\n", z);	
+bool isNegative(char input[], int i){
+	if(input[i]=='-' && !isdigit(input[i++])){
+		return true;
+	}else{
+		return false;
+	}
 }
+
+bool isOperator(char op);
 
 #endif

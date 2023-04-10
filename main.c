@@ -32,7 +32,8 @@ double perform_trig_operation(double sudut, char op[]) {
 
 
 double operasi(double bil1, double bil2, char operator) {
-    switch (operator) {
+	if(isOperator(operator)){
+		switch (operator) {
         case '^':
             return exponent(bil1, bil2);
         case '*':
@@ -49,23 +50,35 @@ double operasi(double bil1, double bil2, char operator) {
         	return sama(bil1, bil2);
         case '>':
         	return lebih_besar(bil1,bil2);
-        case '<':
-        	return lebih_kecil(bil1,bil2);
         default:
-            printf("Invalid operator: %c\n", operator);
-            return 0;
-    }
+            return lebih_kecil(bil1,bil2);
+    	}
+	}else{
+		printf("Invalid Operator %c\n", operator);
+		return 0;
+	}
+    
+}
+
+bool isOperator(char op){
+	if(op=='+' || op=='-' || op=='*' || op =='/' || op =='V' || op == '>' || op =='<' || op=='=' || op =='^' || op=='(' || op ==')'){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 void CalArit(){
+	char input[100];
+    bool cekNegative;
+	double bil2, bil1, operand_stack[100];
+	char operator_stack[100], operator;
+
 	for(;;){
-    	char input[100];
-		double bil2, bil1, operand_stack[100];
-		operand_stack[0] = 0;
 	    int operand_top = -1;
-	    char operator_stack[100], operator;
 	    int operator_top = -1;
 	    int i;
+	    int p=0;
     	system("cls");
     	printf("\tKalkulator Scientific Kelompok 5\n\n");
     	printf("Input : ");
@@ -80,7 +93,21 @@ void CalArit(){
 	            number[number_top] = '\0';
 	            operand_stack[++operand_top] = atof(number);
 	            i--;
-	        } else if (input[i] == '(') {
+	            
+	        }
+			else if (input[i]=='(' && isNegative(&input[i+1], i)){
+	        	char number[100];
+	        	int k;
+	        	k = i+2;
+	            int number_top = 0;
+	            while (isdigit(input[k]) || input[k] == '.') {
+					number[number_top++] = input[k++];	
+	            }
+	            number[number_top] = '\0';
+	            operand_stack[++operand_top] = -atof(number);
+	            i = k--;
+			}
+			 else if (input[i] == '(') {
 	            operator_stack[++operator_top] = input[i];
 	        } else if (input[i] == ')') {
 	            while (operator_stack[operator_top] != '(') {
@@ -93,17 +120,7 @@ void CalArit(){
 					}
 	            }
 	            operator_top--;
-	        } else if (input[i] == '[') {
-                i++;
-                char number[100];
-                int number_top = 0;
-                while (input[i] != ']') {
-                    number[number_top++] = input[i++];
-                }
-                number[number_top] = '\0';
-                operand_stack[++operand_top] = atof(number);
-                operand_stack[operand_top] = operand_stack[operand_top];
-            } else if(input[i]=='|'){
+	        } else if(input[i]=='|'){
             	i++;
             	char number[100];
                 int number_top = 0;
@@ -116,9 +133,9 @@ void CalArit(){
 			} else if (input[i] == 's' || input[i] == 'c' || input[i] == 't'){
             	char trigono[5];
             	int j=0;
-            	char number[100], cek;
+            	char nomor[100], cek;
             	int bil, negative;
-            	int number_top = 0;
+            	int nomor_top = 0;
             	negative = 0;
 			    cek = input[i+4]; // Skip "sin(" or "cos(" or "tan("
 				
@@ -132,13 +149,15 @@ void CalArit(){
 			    }
             	while(input[i] != ')' && (input[i] != '+' || input[i] != '*' || input[i] != '/') && input[i] != ' '){
             		if(isdigit(input[i]) || input[i] == '.'){
-            			number[number_top++] = input[i++];
+            			nomor[nomor_top++] = input[i++];
+            			
 					}else {
 				        // menyimpan operator trigonometri
 				        trigono[j++] = input[i++];
 				        trigono[4] = '\0';
 				    }
 				}
+				nomor[nomor_top] = '\0';
 				if(negative){
 					j--;
 				}
@@ -146,9 +165,9 @@ void CalArit(){
 					printf("invalid expression for trigonometri, example 'sin(90) or sec(90) etc'\n");
 				}else{
 					if (negative) { // jika bilangan negatif, konversi ke nilai negatif saat disimpan di stack
-			            operand_stack[++operand_top] = -1 * atof(number);
+			            operand_stack[++operand_top] = -1 * atof(nomor);
 			        } else {
-			            operand_stack[++operand_top] = atof(number);
+			            operand_stack[++operand_top] = atof(nomor);
 			        }
 					bil = operand_stack[operand_top];
 					operand_stack[operand_top]=perform_trig_operation(bil, trigono);
@@ -188,6 +207,7 @@ void CalArit(){
 				        log[4] = '\0';
 				    }
 				}
+				number[number_top] = '\0';
 				if(strcmp(log, "log(")){
 					printf("invalid expression, maybe input = 'log()'?\n");
 				}else{
